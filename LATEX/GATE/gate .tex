@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{circuitikz}
+\providecommand{\brak}[1]{\ensuremath{\left\{#1\right\}}}
+\begin{document}
+\begin{enumerate}
+\item The state diagram of a sequence detector is shown below. State $S_{0}$ is the initial state of the sequence detector. If the output is 1, then
+\begin{circuitikz}
+    % Input nodes
+    \node (a) at (0,0) {$a$};
+    \node (b) at (0,-1) {$b$};
+    \node (c) at (0,-3) {$c$};
+
+    % NOT gate
+    \node [not port] at (2,-1) (not) {};
+    \draw (b) -- (not.in);
+
+    % AND gate
+    \node [and port] at (5,-2.75) (and) {};
+    \draw (not.out) -| (and.in 1);
+    \draw (c) -- (and.in 2);
+
+    % OR gate
+    \node [or port] at (8,-0.45) (or) {};
+    \draw (a) -- (or.in 1);
+    \draw (and.out) -| (or.in 2);
+
+    % Output
+    \node (z) at (9,-0.5) {$z$};
+    \draw (or.out) -- (z);
+\end{circuitikz}
+\begin{enumerate}[label=\Alph*.]
+ \item the sequence 01010 is detected
+ \item the sequence 01011 is detected
+ \item the sequence 01110 is detected
+ \item the sequence 01001 is detected
+\end{enumerate}
+\end{enumerate}
+\hfill (GATE CS 2020)
+\end{document}
